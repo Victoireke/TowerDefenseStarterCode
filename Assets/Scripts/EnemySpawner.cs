@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static EnemySpawner Instance;
+    public static EnemySpawner instance;
 
     public List<GameObject> Path1 = new List<GameObject>();
     public List<GameObject> Path2 = new List<GameObject>();
     public List<GameObject> enemies = new List<GameObject>();
 
-    public static EnemySpawner Get{get { return Instance; }}
+    public static EnemySpawner Get{get { return instance; }}
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
-        else if(Instance != this)
+        else if(instance != this)
         {
             Destroy(gameObject);
         }
