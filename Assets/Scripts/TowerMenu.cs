@@ -32,15 +32,15 @@ public class TowerMenu : MonoBehaviour
 
 
 
-        archerButton = root.Q<Button>("archer tower button");
+        archerButton = root.Q<Button>("archer-tower");
 
-        swordButton = root.Q<Button>("Sword tower button");
+        swordButton = root.Q<Button>("Sword-tower");
 
-        wizardButton = root.Q<Button>("wizard tower button");
+        wizardButton = root.Q<Button>("wizard-tower");
 
-        updateButton = root.Q<Button>("bupgrade button");
+        updateButton = root.Q<Button>("upgrade");
 
-        destroyButton = root.Q<Button>("destroy button");
+        destroyButton = root.Q<Button>("destroy");
 
 
 

@@ -25,7 +25,7 @@ public class ConstructionSite
     {
         // Controleer eerst of er al een bestaande toren is
         if (tower != null)
-        {
+        { 
             // Als er een bestaande toren is, verwijder deze dan eerst
             GameObject.Destroy(tower);
         }
