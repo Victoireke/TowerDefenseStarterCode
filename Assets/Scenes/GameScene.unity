@@ -240,8 +240,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 357607170}
-  - component: {fileID: 357607169}
   - component: {fileID: 357607171}
+  - component: {fileID: 357607169}
   m_Layer: 0
   m_Name: TowerMenu
   m_TagString: Untagged
