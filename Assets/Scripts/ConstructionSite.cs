@@ -35,4 +35,9 @@ public class ConstructionSite
         Level = newLevel;
         TowerType = newType;
     }
+    public Vector3 BuildPosition()
+    {
+        return WorldPosition; // Of een andere berekening voor de bouwpositie
+    }
+
 }
