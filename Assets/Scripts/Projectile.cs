@@ -55,4 +55,5 @@ public class Projectile : MonoBehaviour
             target.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
         }
     }
+
 }

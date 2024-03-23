@@ -39,4 +39,15 @@ public class Enemy : MonoBehaviour
         
         }
     }
+    public void Damage(int damage)
+    {
+        health -= damage; // reduce the health value by the specified damage
+
+        // Check if health is less than or equal to zero
+        if (health <= 0)
+        {
+            // Destroy the game object
+            Destroy(gameObject);
+        }
+    }
 }

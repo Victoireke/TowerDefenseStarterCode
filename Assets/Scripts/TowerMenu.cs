@@ -187,21 +187,21 @@ public class TowerMenu : MonoBehaviour
 
     private void OnUpdateButtonClicked()
     {
-        if (selectedSite != null)
+        if (selectedSite != null && selectedSite.Level < SiteLevel.lvl3)
         {
-            // Upgrade de geselecteerde site met één niveau
             selectedSite.Level++;
-            // Update de knoppen in de torenmenuq   
             EvaluateMenu();
         }
     }
+
 
     private void OnDestroyButtonClicked()
     {
         if (selectedSite != null)
         {
+            TowerType towerType = selectedSite.GetTowerType();
             // Vernietig de toren op de geselecteerde site
-            selectedSite.SetTower(null, SiteLevel.Onbebouwd, TowerType.None);
+            selectedSite.SetTower(null, SiteLevel.Onbebouwd, towerType);
             // Zet het niveau van de site op 0
             selectedSite.Level = SiteLevel.Onbebouwd;
             // Update de knoppen in de torenmenu

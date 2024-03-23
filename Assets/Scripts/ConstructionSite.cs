@@ -39,5 +39,11 @@ public class ConstructionSite
     {
         return WorldPosition; // Of een andere berekening voor de bouwpositie
     }
+    private TowerType towerType;
+
+    public TowerType GetTowerType()
+    {
+        return towerType;
+    }
 
 }
