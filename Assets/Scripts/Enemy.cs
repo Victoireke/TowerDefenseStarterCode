@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,29 +25,42 @@ public class Enemy : MonoBehaviour
         if (target != null)
         {
             float step = speed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position ,step);
-            if (Vector2.Distance(transform.position,target.transform.position)<0.1f)
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+            if (Vector2.Distance(transform.position, target.transform.position) < 0.1f)
             {
                 pathIndex++;
                 target = EnemySpawner.instance.RequestTarget(path, pathIndex);
-                    
-                  if(target == null)
+
+                if (target == null)
                 {
+                    AttackGate(); // Roep AttackGate functie van GameManager aan als het laatste waypoint bereikt is
                     Destroy(gameObject);
                 }
             }
-        
+
         }
     }
     public void Damage(int damage)
     {
-        health -= damage; // reduce the health value by the specified damage
+        health -= damage; // Verminder de gezondheidswaarde met de opgegeven schade
 
-        // Check if health is less than or equal to zero
+        // Controleer of de gezondheidswaarde kleiner is dan of gelijk is aan nul
         if (health <= 0)
         {
-            // Destroy the game object
-            Destroy(gameObject);
+            AddCredits(points); // Roep AddCredits functie van GameManager aan als de gezondheid 0 is
+            Destroy(gameObject); // Vernietig het gameobject
         }
+    }
+
+    // Functie om de poort aan te vallen
+    private void AttackGate()
+    {
+        GameManager.Instance.AttackGate(); // Roep AttackGate functie van GameManager aan
+    }
+
+    // Functie om credits toe te voegen
+    private void AddCredits(int amount)
+    {
+        GameManager.Instance.AddCredits(amount); // Roep AddCredits functie van GameManager aan en geef het aantal punten mee
     }
 }
