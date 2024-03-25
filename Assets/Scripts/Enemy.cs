@@ -33,8 +33,9 @@ public class Enemy : MonoBehaviour
 
                 if (target == null)
                 {
-                    AttackGate(); // Roep AttackGate functie van GameManager aan als het laatste waypoint bereikt is
+                    AttackGate(); // Call GameManager's AttackGate function when reaching the last waypoint
                     Destroy(gameObject);
+                    GameManager.Get.RemoveInGameEnemy(); // Call GameManager's RemoveInGameEnemy function when reaching the last waypoint
                 }
             }
 
@@ -42,25 +43,23 @@ public class Enemy : MonoBehaviour
     }
     public void Damage(int damage)
     {
-        health -= damage; // Verminder de gezondheidswaarde met de opgegeven schade
+        health -= damage;
 
-        // Controleer of de gezondheidswaarde kleiner is dan of gelijk is aan nul
         if (health <= 0)
         {
-            AddCredits(points); // Roep AddCredits functie van GameManager aan als de gezondheid 0 is
-            Destroy(gameObject); // Vernietig het gameobject
+            AddCredits(points);
+            Destroy(gameObject);
+            GameManager.Get.RemoveInGameEnemy(); // Call GameManager's RemoveInGameEnemy function when health reaches 0
         }
     }
 
-    // Functie om de poort aan te vallen
     private void AttackGate()
     {
-        GameManager.Instance.AttackGate(); // Roep AttackGate functie van GameManager aan
+        GameManager.Instance.AttackGate();
     }
 
-    // Functie om credits toe te voegen
     private void AddCredits(int amount)
     {
-        GameManager.Instance.AddCredits(amount); // Roep AddCredits functie van GameManager aan en geef het aantal punten mee
+        GameManager.Instance.AddCredits(amount);
     }
 }

@@ -6,11 +6,12 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     private ConstructionSite selectedSite;
-    private TopMenu topMenu; // Nieuwe referentie naar het TopMenu script
-    private int credits; // Nieuwe variabele voor credits
-    private int health; // Nieuwe variabele voor health
-    private int currentWave; // Nieuwe variabele voor currentWave
+    private TopMenu topMenu;
+    private int credits;
+    private int health;
+    private int currentWave;
     private bool waveActive = false;
+    private int enemyInGameCounter = 0;
 
     public GameObject TowerMenu;
     private TowerMenu towerMenu;
@@ -51,18 +52,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         towerMenu = TowerMenu.GetComponent<TowerMenu>();
-        topMenu = FindObjectOfType<TopMenu>(); // Zoek het TopMenu script in de scene
-        StartGame(); // Roep de StartGame functie aan bij het starten van het spel
+        topMenu = FindObjectOfType<TopMenu>();
+        StartGame();
     }
 
-    // Functie om het spel te starten en variabelen in te stellen
     private void StartGame()
     {
-        credits = 200; // Start met 200 credits
-        health = 10; // Start met 10 health
-        currentWave = 0; // Start de wave op 0
-
-        // Update de labels in het topmenu
+        credits = 200;
+        health = 10;
+        currentWave = 0;
         topMenu.UpdateTopMenuLabels(credits, health, currentWave);
     }
 
@@ -96,17 +94,16 @@ public class GameManager : MonoBehaviour
         GameObject towerPrefab = towerList[(int)level];
         Vector3 buildPosition = selectedSite.BuildPosition();
 
-        if (level == SiteLevel.Onbebouwd) // Als level 0, dan verkoop
+        if (level == SiteLevel.Onbebouwd)
         {
-            // Credits toevoegen voor de verkoop
             AddCredits(GetCost(type, level, true));
         }
-        else // Anders bouwen
+        else
         {
             int cost = GetCost(type, level);
-            if (cost <= credits) // Controleer of er genoeg credits zijn
+            if (cost <= credits)
             {
-                credits -= cost; // Credits aftrekken
+                credits -= cost;
                 GameObject towerInstance = Instantiate(towerPrefab, buildPosition, Quaternion.identity);
                 selectedSite.SetTower(towerInstance, level, type);
                 towerMenu.SetSite(null);
@@ -117,47 +114,39 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Update de labels in het topmenu na het bouwen/verkopen van een toren
         topMenu.UpdateTopMenuLabels(credits, health, currentWave);
     }
 
-    // Functie om de gate aan te vallen en health te verminderen
     public void AttackGate()
     {
         health--;
         topMenu.SetHealthLabel("Health: " + health);
     }
 
-    // Functie om credits toe te voegen
     public void AddCredits(int amount)
     {
         credits += amount;
         topMenu.SetCreditsLabel("Credits: " + credits);
-        towerMenu.EvaluateMenu(); // Evaluatie van de torenmenu na het toevoegen van credits
+        towerMenu.EvaluateMenu();
     }
 
-    // Functie om credits te verwijderen
     public void RemoveCredits(int amount)
     {
         credits -= amount;
         topMenu.SetCreditsLabel("Credits: " + credits);
-        towerMenu.EvaluateMenu(); // Evaluatie van de torenmenu na het verwijderen van credits
+        towerMenu.EvaluateMenu();
     }
 
-    // Functie om het aantal credits op te halen
     public int GetCredits()
     {
         return credits;
     }
 
-    // Functie om de kosten van een toren te bepalen
     public int GetCost(TowerType type, SiteLevel level, bool selling = false)
     {
-        // Bepaal de kosten op basis van het type en level van de toren
-        // Het argument 'selling' wordt gebruikt om te bepalen of het gaat om de verkoop van een toren
-        // De exacte implementatie van de kostenbepaling hangt af van je spellogica
-        return 0; // Placeholder return, vervang dit met de daadwerkelijke implementatie
+        return 0;
     }
+
     public static GameManager Get
     {
         get
@@ -174,17 +163,50 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-    
+
     public void StartWave()
     {
-        currentWave++; // Increase the value of currentWave
-        topMenu.UpdateTopMenuLabels(credits, health, currentWave); // Update the label for the current wave in topMenu
-        waveActive = true; // Change waveActive to true
+        currentWave++;
+        topMenu.UpdateTopMenuLabels(credits, health, currentWave);
+        waveActive = true;
+        enemyInGameCounter = 0;
     }
 
     public void EndWave()
     {
-        waveActive = false; // Change waveActive to false
+        waveActive = false;
+        if (enemyInGameCounter <= 0)
+        {
+            if (currentWave == 10) // Golfnummer veranderd naar 10
+            {
+                // Logica voor het einde van het spel
+            }
+            else
+            {
+                topMenu.EnableWaveButton();
+            }
+        }
     }
 
+    public void AddInGameEnemy()
+    {
+        enemyInGameCounter++;
+    }
+
+    public void RemoveInGameEnemy()
+    {
+        enemyInGameCounter--;
+
+        if (!waveActive && enemyInGameCounter <= 0)
+        {
+            if (currentWave == 10) // Golfnummer veranderd naar 10
+            {
+                // Logica voor het einde van het spel
+            }
+            else
+            {
+                topMenu.EnableWaveButton();
+            }
+        }
+    }
 }

@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     private int ufoCounter = 0;
 
-    public static EnemySpawner Get{get { return instance; }}
+    public static EnemySpawner Get { get { return instance; } }
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -42,14 +42,16 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnPosition = Vector3.zero;
             spawnRotation = Quaternion.identity;
-            Debug.LogError("invalid path secified!");
+            Debug.LogError("invalid path specified!");
             return;
         }
-        var newEnemy = Instantiate(enemies[type],spawnPosition,spawnRotation);
+        var newEnemy = Instantiate(enemies[type], spawnPosition, spawnRotation);
         var script = newEnemy.GetComponent<Enemy>();
 
         script.path = path;
         script.target = Path1[1];
+
+        GameManager.Get.AddInGameEnemy(); // Call GameManager's AddInGameEnemy function when spawning an enemy
     }
     public GameObject RequestTarget(Path path, int index)
     {
@@ -63,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
                 currentPath = Path2;
                 break;
             default:
-                Debug.LogError("invalid path secified!");
+                Debug.LogError("invalid path specified!");
                 break;
         }
         if (currentPath == null || index < 0 || index >= currentPath.Count)
@@ -81,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void SpawnTester() { SpawnEnemy(0, Path.Path1); }
     public void StartWave(int number)
@@ -120,5 +122,4 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Get.EndWave(); // Notify GameManager that the wave has ended
         }
     }
-
 }
