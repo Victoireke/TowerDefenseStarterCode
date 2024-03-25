@@ -62,5 +62,10 @@ public class TowerMenu : MonoBehaviour
         }
     }
 
-    // Other methods omitted for brevity...
+    public void SetSite(ConstructionSite site)
+    {
+        selectedSite = site;
+        EvaluateMenu(); // Zorg ervoor dat je EvaluateMenu aanroept om de menu-evaluatie te updaten
+    }
+
 }

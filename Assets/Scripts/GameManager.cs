@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private int credits; // Nieuwe variabele voor credits
     private int health; // Nieuwe variabele voor health
     private int currentWave; // Nieuwe variabele voor currentWave
+    private bool waveActive = false;
 
     public GameObject TowerMenu;
     private TowerMenu towerMenu;
@@ -157,4 +158,33 @@ public class GameManager : MonoBehaviour
         // De exacte implementatie van de kostenbepaling hangt af van je spellogica
         return 0; // Placeholder return, vervang dit met de daadwerkelijke implementatie
     }
+    public static GameManager Get
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+                if (instance == null)
+                {
+                    GameObject obj = new GameObject("GameManager");
+                    instance = obj.AddComponent<GameManager>();
+                }
+            }
+            return instance;
+        }
+    }
+    
+    public void StartWave()
+    {
+        currentWave++; // Increase the value of currentWave
+        topMenu.UpdateTopMenuLabels(credits, health, currentWave); // Update the label for the current wave in topMenu
+        waveActive = true; // Change waveActive to true
+    }
+
+    public void EndWave()
+    {
+        waveActive = false; // Change waveActive to false
+    }
+
 }

@@ -45,5 +45,14 @@ public class TopMenu : MonoBehaviour
         healthlabel.text = text;
     }
 
+    public void WaveButton_clicked()
+    {
+        GameManager.Get.StartWave(); // Call GameManager's StartWave function
+        startWaveButton.SetEnabled(false); // Disable the wave button
+    }
 
+    public void EnableWaveButton()
+    {
+        startWaveButton.SetEnabled(true); // Enable the wave button
+    }
 }

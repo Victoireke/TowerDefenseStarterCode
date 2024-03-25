@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public List<GameObject> Path1 = new List<GameObject>();
     public List<GameObject> Path2 = new List<GameObject>();
     public List<GameObject> enemies = new List<GameObject>();
+    private int ufoCounter = 0;
 
     public static EnemySpawner Get{get { return instance; }}
 
@@ -83,4 +84,41 @@ public class EnemySpawner : MonoBehaviour
         
     }
     private void SpawnTester() { SpawnEnemy(0, Path.Path1); }
+    public void StartWave(int number)
+    {
+        ufoCounter = 0; // Reset counter
+
+        switch (number)
+        {
+            case 1:
+                InvokeRepeating("StartWave1", 1f, 1.5f); // Start invoking the wave function
+                break;
+                // Add more cases for additional waves
+        }
+    }
+
+    public void StartWave1()
+    {
+        ufoCounter++;
+
+        // Spawn enemies based on wave progression
+        if (ufoCounter % 6 <= 1) return;
+
+        if (ufoCounter < 30)
+        {
+            SpawnEnemy(0, Path.Path1);
+        }
+        else
+        {
+            SpawnEnemy(1, Path.Path1);
+        }
+
+        // End the wave after a certain condition
+        if (ufoCounter > 30)
+        {
+            CancelInvoke("StartWave1");
+            GameManager.Get.EndWave(); // Notify GameManager that the wave has ended
+        }
+    }
+
 }
