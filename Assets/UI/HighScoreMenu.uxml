@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/images.jpeg?fileID=2800000&amp;guid=7d15d1ebe681b6c43a726ab5541d8ca6&amp;type=3#images&apos;);">
+        <ui:Label tabindex="-1" text="Game Over" parse-escape-sequences="true" display-tooltip-when-elided="true" name="a" style="flex-wrap: nowrap;" />
+        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Endgame" />
+        <ui:Label tabindex="-1" text="HighScores" parse-escape-sequences="true" display-tooltip-when-elided="true" name="b" />
+        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="highscore" />
+        <ui:Button text="Play Again" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayAgain" style="height: 48px; width: 358px;" />
+    </ui:VisualElement>
+</ui:UXML>

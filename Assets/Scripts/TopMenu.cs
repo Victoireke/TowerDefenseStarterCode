@@ -9,48 +9,49 @@ public class TopMenu : MonoBehaviour
     public Button startWaveButton;
     private VisualElement root;
 
-    public void UpdateTopMenuLabels(int credits, int health, int currentWave)
+    void Start()
     {
-        Debug.Log("Updating top menu labels: Credits: " + credits + ", Health: " + health + ", Wave: " + currentWave);
-        creditslabel.text = "Credits: " + credits;
-        healthlabel.text = "Health: " + health;
-        wavelabel.text = "Wave: " + currentWave;
-    }
-    public void Start()
-    {
+        // Get the root visual element
         root = GetComponent<UIDocument>().rootVisualElement;
+
+        // Find UI elements by name
         startWaveButton = root.Q<Button>("start-button");
         wavelabel = root.Q<Label>("wavelabel");
         creditslabel = root.Q<Label>("creditslabel");
         healthlabel = root.Q<Label>("healthlabel");
 
+        // Example initialization
+        SetCreditsLabel("Credits: 100");
+        SetHealthLabel("Health: 100");
+        SetWaveLabel("Wave: 1");
     }
 
-
-    // Functie om de wave-label bij te werken
+    // Function to update the wave label
     public void SetWaveLabel(string text)
     {
         wavelabel.text = text;
     }
 
-    // Functie om de credits-label bij te werken
+    // Function to update the credits label
     public void SetCreditsLabel(string text)
     {
         creditslabel.text = text;
     }
 
-    // Functie om de health-label bij te werken
+    // Function to update the health label
     public void SetHealthLabel(string text)
     {
         healthlabel.text = text;
     }
 
+    // Function called when the wave button is clicked
     public void WaveButton_clicked()
     {
         GameManager.Get.StartWave(); // Call GameManager's StartWave function
         startWaveButton.SetEnabled(false); // Disable the wave button
     }
 
+    // Function to enable the wave button
     public void EnableWaveButton()
     {
         startWaveButton.SetEnabled(true); // Enable the wave button
